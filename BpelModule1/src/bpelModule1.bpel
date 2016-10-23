@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<process
+    name="bpelModule1"
+    targetNamespace="http://enterprise.netbeans.org/bpel/BpelModule1/bpelModule1"
+    xmlns:tns="http://enterprise.netbeans.org/bpel/BpelModule1/bpelModule1"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+    xmlns:sxt="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/Trace" 
+    xmlns:sxed="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/Editor2"
+    xmlns:sxat="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/Attachment"
+    xmlns:sxeh="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/ErrorHandling">
+    <import namespace="http://j2ee.netbeans.org/wsdl/BpelModule1/src/newWSDL" location="newWSDL.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <import namespace="http://enterprise.netbeans.org/bpel/CookWrapper" location="CookWrapper.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <import namespace="http://ws.hamandeggs/" location="http://desktop-qf299to:8080/HamEggsWebServices/Cook?wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <import namespace="http://enterprise.netbeans.org/bpel/CleanerWrapper" location="CleanerWrapper.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <import namespace="http://ws.hamandeggs/" location="http://desktop-qf299to:8080/HamEggsWebServices/Cleaner?wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <partnerLinks>
+        <partnerLink name="PartnerLink2" xmlns:tns="http://enterprise.netbeans.org/bpel/CookWrapper" partnerLinkType="tns:CookLinkType" partnerRole="CookRole"/>
+        <partnerLink name="PartnerLink3" xmlns:tns="http://enterprise.netbeans.org/bpel/CleanerWrapper" partnerLinkType="tns:CleanerLinkType" partnerRole="CleanerRole"/>
+    </partnerLinks>
+    <variables>
+        <variable name="HamandeggsOut" xmlns:tns="http://j2ee.netbeans.org/wsdl/BpelModule1/src/newWSDL" messageType="tns:newWSDLOperationResponse"/>
+        <variable name="VentilateAirOut" xmlns:tns="http://ws.hamandeggs/" messageType="tns:ventilateAirResponse"/>
+        <variable name="VentilateAirIn" xmlns:tns="http://ws.hamandeggs/" messageType="tns:ventilateAir"/>
+        <variable name="BakeOut" xmlns:tns="http://ws.hamandeggs/" messageType="tns:bakeResponse"/>
+        <variable name="BakeIn" xmlns:tns="http://ws.hamandeggs/" messageType="tns:bake"/>
+        <variable name="BreakEggOut" xmlns:tns="http://ws.hamandeggs/" messageType="tns:breakEggResponse"/>
+        <variable name="BreakEggIn" xmlns:tns="http://ws.hamandeggs/" messageType="tns:breakEgg"/>
+        <variable name="WashDishesOut" xmlns:tns="http://ws.hamandeggs/" messageType="tns:washDishesResponse"/>
+        <variable name="WashDishesIn" xmlns:tns="http://ws.hamandeggs/" messageType="tns:washDishes"/>
+        <variable name="HamandeggsIn" xmlns:tns="http://j2ee.netbeans.org/wsdl/BpelModule1/src/newWSDL" messageType="tns:newWSDLOperationRequest"/>
+    </variables>
+    <sequence>
+        <receive name="Receive1" createInstance="yes" partnerLink="PartnerLink1" operation="hamandeggs" xmlns:tns="http://j2ee.netbeans.org/wsdl/BpelModule1/src/newWSDL" portType="tns:newWSDLPortType" variable="HamandeggsIn"/>
+        <assign name="Assign1">
+            <copy>
+                <from>$HamandeggsIn.input/eggs</from>
+                <to>$BreakEggIn.parameters/numberOfEggs</to>
+            </copy>
+            <copy>
+                <from>$HamandeggsIn.input/dishes</from>
+                <to>$WashDishesIn.parameters/numberOfDishes</to>
+            </copy>
+            <copy>
+                <from>$HamandeggsIn.input/airseconds</from>
+                <to>$VentilateAirIn.parameters/secondsToVentilate</to>
+            </copy>
+            <copy>
+                <from>$HamandeggsIn.input/bakeseconds</from>
+                <to>$BakeIn.parameters/seconds</to>
+            </copy>
+            <copy>
+                <from>true()</from>
+                <to variable="HamandeggsOut" part="output"/>
+            </copy>
+        </assign>
+        <invoke name="Invoke1" partnerLink="PartnerLink3" operation="washDishes" xmlns:tns="http://ws.hamandeggs/" portType="tns:Cleaner" inputVariable="WashDishesIn" outputVariable="WashDishesOut"/>
+        <invoke name="Invoke2" partnerLink="PartnerLink2" operation="breakEgg" xmlns:tns="http://ws.hamandeggs/" portType="tns:Cook" inputVariable="BreakEggIn" outputVariable="BreakEggOut"/>
+        <invoke name="Invoke3" partnerLink="PartnerLink2" operation="bake" xmlns:tns="http://ws.hamandeggs/" portType="tns:Cook" inputVariable="BakeIn" outputVariable="BakeOut"/>
+        <invoke name="Invoke4" partnerLink="PartnerLink3" operation="ventilateAir" xmlns:tns="http://ws.hamandeggs/" portType="tns:Cleaner" inputVariable="VentilateAirIn" outputVariable="VentilateAirOut"/>
+        <reply name="Reply1" partnerLink="PartnerLink1" operation="hamandeggs" xmlns:tns="http://j2ee.netbeans.org/wsdl/BpelModule1/src/newWSDL" portType="tns:newWSDLPortType" variable="HamandeggsOut"/>
+    </sequence>
+</process>

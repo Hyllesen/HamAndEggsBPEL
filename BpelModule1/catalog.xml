@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
+    <nextCatalog catalog="nbproject/private/retriever/catalog.xml"/>
+    <system systemId="http://desktop-qf299to:8080/HamEggsWebServices/Cook?wsdl" uri="src/desktop-qf299to_8080/HamEggsWebServices/Cook.wsdl"/>
+    <system systemId="http://desktop-qf299to:8080/HamEggsWebServices/Cook?xsd=1" uri="src/desktop-qf299to_8080/HamEggsWebServices/Cook.xsd_1.xsd"/>
+    <system systemId="http://desktop-qf299to:8080/HamEggsWebServices/Cleaner?wsdl" uri="src/desktop-qf299to_8080/HamEggsWebServices/Cleaner.wsdl"/>
+    <system systemId="http://desktop-qf299to:8080/HamEggsWebServices/Cleaner?xsd=1" uri="src/desktop-qf299to_8080/HamEggsWebServices/Cleaner.xsd_1.xsd"/>
+</catalog>

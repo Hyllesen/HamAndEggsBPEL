@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<casa xmlns="http://java.sun.com/xml/ns/casa" xmlns:ns1="http://ws.hamandeggs/" xmlns:ns2="http://j2ee.netbeans.org/wsdl/BpelModule1/src/newWSDL" xmlns:ns3="http://enterprise.netbeans.org/bpel/BpelModule1/bpelModule1" xmlns:xlink="http://www.w3.org/2000/xlink">
+    <endpoints>
+        <endpoint endpoint-name="CookPort" interface-name="ns1:Cook" name="endpoint1" service-name="ns1:Cook"/>
+        <endpoint endpoint-name="CleanerPort" interface-name="ns1:Cleaner" name="endpoint2" service-name="ns1:Cleaner"/>
+        <endpoint endpoint-name="newWSDLPortTypeBindingPort" interface-name="ns2:newWSDLPortType" name="endpoint3" service-name="ns2:newWSDLService"/>
+        <endpoint display-name="PartnerLink1" endpoint-name="newWSDLPortTypeRole_myRole" file-path="bpelModule1.bpel" interface-name="ns2:newWSDLPortType" name="endpoint4" process-name="bpelModule1" service-name="ns3:PartnerLink1"/>
+        <endpoint display-name="PartnerLink2" endpoint-name="CookRole_partnerRole" file-path="bpelModule1.bpel" interface-name="ns1:Cook" name="endpoint5" process-name="bpelModule1" service-name="ns3:PartnerLink2"/>
+        <endpoint display-name="PartnerLink3" endpoint-name="CleanerRole_partnerRole" file-path="bpelModule1.bpel" interface-name="ns1:Cleaner" name="endpoint6" process-name="bpelModule1" service-name="ns3:PartnerLink3"/>
+    </endpoints>
+    <service-units>
+        <service-engine-service-unit artifacts-zip="BpelModule1.jar" component-name="sun-bpel-engine" defined="true" description="Represents this Service Unit" internal="true" name="HamEggsApp-BpelModule1" unit-name="BpelModule1" unknown="false" x="155" y="99">
+            <provides endpoint="endpoint4"/>
+            <consumes endpoint="endpoint5"/>
+            <consumes endpoint="endpoint6"/>
+        </service-engine-service-unit>
+        <binding-component-service-unit artifacts-zip="sun-http-binding.jar" component-name="sun-http-binding" description="Represents this Service Unit" name="HamEggsApp-sun-http-binding" unit-name="sun-http-binding">
+            <ports>
+                <port x="67" y="197">
+                    <link xlink:href="../jbiServiceUnits/BpelModule1/desktop-qf299to_8080/HamEggsWebServices/Cleaner.wsdl#xpointer(/definitions/service[@name='Cleaner']/port[@name='CleanerPort'])" xlink:type="simple"/>
+                    <consumes endpoint="endpoint2"/>
+                    <provides endpoint="endpoint2"/>
+                </port>
+                <port x="67" y="118">
+                    <link xlink:href="../jbiServiceUnits/BpelModule1/desktop-qf299to_8080/HamEggsWebServices/Cook.wsdl#xpointer(/definitions/service[@name='Cook']/port[@name='CookPort'])" xlink:type="simple"/>
+                    <consumes endpoint="endpoint1"/>
+                    <provides endpoint="endpoint1"/>
+                </port>
+                <port x="67" y="39">
+                    <link xlink:href="../jbiServiceUnits/BpelModule1/newWSDL.wsdl#xpointer(/definitions/service[@name='newWSDLService']/port[@name='newWSDLPortTypeBindingPort'])" xlink:type="simple"/>
+                    <consumes endpoint="endpoint3"/>
+                    <provides endpoint="endpoint3"/>
+                </port>
+            </ports>
+        </binding-component-service-unit>
+    </service-units>
+    <connections>
+        <connection consumer="endpoint5" provider="endpoint1" state="unchanged"/>
+        <connection consumer="endpoint6" provider="endpoint2" state="unchanged"/>
+        <connection consumer="endpoint3" provider="endpoint4" state="unchanged"/>
+    </connections>
+    <porttypes>
+        <link xlink:href="../jbiServiceUnits/BpelModule1/desktop-qf299to_8080/HamEggsWebServices/Cleaner.wsdl#xpointer(/definitions/portType[@name='Cleaner'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/BpelModule1/desktop-qf299to_8080/HamEggsWebServices/Cook.wsdl#xpointer(/definitions/portType[@name='Cook'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/BpelModule1/newWSDL.wsdl#xpointer(/definitions/portType[@name='newWSDLPortType'])" xlink:type="simple"/>
+    </porttypes>
+    <bindings>
+        <link xlink:href="../jbiServiceUnits/BpelModule1/desktop-qf299to_8080/HamEggsWebServices/Cleaner.wsdl#xpointer(/definitions/binding[@name='CleanerPortBinding'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/BpelModule1/desktop-qf299to_8080/HamEggsWebServices/Cook.wsdl#xpointer(/definitions/binding[@name='CookPortBinding'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/BpelModule1/newWSDL.wsdl#xpointer(/definitions/binding[@name='newWSDLPortTypeBinding'])" xlink:type="simple"/>
+    </bindings>
+    <services>
+        <link xlink:href="../jbiServiceUnits/BpelModule1/desktop-qf299to_8080/HamEggsWebServices/Cleaner.wsdl#xpointer(/definitions/service[@name='Cleaner'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/BpelModule1/desktop-qf299to_8080/HamEggsWebServices/Cook.wsdl#xpointer(/definitions/service[@name='Cook'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/BpelModule1/newWSDL.wsdl#xpointer(/definitions/service[@name='newWSDLService'])" xlink:type="simple"/>
+    </services>
+    <regions>
+        <region name="WSDL Endpoints" width="150"/>
+        <region name="JBI Modules" width="500"/>
+        <region name="External Modules" width="200"/>
+    </regions>
+</casa>
